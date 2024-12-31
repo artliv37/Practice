@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гра</title>
+    <style>
+        body {
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-image: url(assets/room.png);
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            position: relative;
+        }
+
+        .picture {
+            position: absolute;
+            top: 15%;
+            left: 12%;
+            cursor: pointer;
+        }
+
+        .book {
+            position: absolute;
+            top: 63%;
+            left: 25%;
+            cursor: pointer;
+        }
+
+        .closed-book {
+            position: absolute;
+            top: 82%;
+            left: 65%;
+            cursor: pointer;
+        }
+
+        .pile-of-paper {
+            position: absolute;
+            top: 85%;
+            left: 46%;
+            cursor: pointer;
+        }
+
+        .lock {
+            position: absolute;
+            top: 50%;
+            left: 55%;
+            cursor: pointer;
+        }
+
+        .lock:hover,
+        .picture:hover,
+        .book:hover,
+        .closed-book:hover,
+        .pile-of-paper:hover {
+            filter: brightness(1.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .modal div {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .flip-button {
+            position: absolute;
+            left: 75%;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .flip-button:hover {
+            background-color: #ddd;
+        }
+
+        .mus {
+            position: absolute;
+            top: 1%;
+            left: 1%;
+        }
+
+        #music-button {
+            background: linear-gradient(90deg, #b54f0f56, #a3494361);
+            border: none;
+            border-radius: 25px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+    </style>
+</head>
+<body>
+    <img class="picture" src="assets/WallPicture.png" alt="Картина">
+    <img class="book" src="assets/book.png" alt="Книга">
+    <img class="closed-book" src="assets/closed-book.png" alt="Закрита книга">
+    <img class="pile-of-paper" src="assets/pileofpaper.png" alt="Бумаги">
+    <img class="lock" src="assets/lock.png" alt="Замок">
+
+    <div class="modal" id="modal">
+        <span class="modal-close" id="modalClose">&times;</span>
+        <img src="assets/open-book.png" alt="Відкрита книга">
+    </div>
+    <div class="modal" id="modal2">
+        <span class="modal-close" id="modalClose2">&times;</span>
+        <img src="assets/paper.png" alt="Лист">
+    </div>
+    <div class="modal" id="modal4">
+        <span class="modal-close" id="modalClose">&times;</span>
+        <img src="assets/open-book2.png" alt="Відкрита книга">
+    </div>
+    <div class="modal" id="lockModal">
+        <span class="modal-close" id="lockModalClose">&times;</span>
+        <div style="color: white; text-align: center;">
+            <p>Введіть пароль, щоб відкрити двері:</p>
+            <input type="text" id="passwordInput" style="padding: 10px; font-size: 16px;" />
+            <button id="submitPassword" style="padding: 10px 20px; font-size: 16px; margin-top: 10px;">Відкрити</button>
+        </div>
+    </div>
+    <div class="modal" id="modal3">
+        <span class="modal-close" id="modalClose3">&times;</span>
+        <img src="assets/Picture.png" alt="Картина">
+        <button class="flip-button" id="flipButton" style="margin-top: 20px; padding: 10px; font-size: 16px;">Перевернути</button>
+    </div>
+    <div class="modal" id="flippedPictureModal">
+        <span class="modal-close" id="flippedPictureClose">&times;</span>
+        <img src="assets/FlippedPicture.png" alt="Перевернута картина">
+    </div>
+
+    <audio id="background-music" loop>
+        <source src="assets/Music.mp3" type="audio/mpeg">
+    </audio>
+    <div class="mus">
+        <button id="music-button" onclick="playMusic()"><img src="assets/music.png"></button>
+    </div>
+    <script>
+        function playMusic() {
+            const music = document.getElementById('background-music');
+            const button = document.getElementById('music-button');
+
+            if (music.paused) {
+                music.play().catch(error => {
+                    console.warn('Не вдалось відтворити музику:', error);
+                });
+            } else {
+                music.pause();
+            }
+        }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
